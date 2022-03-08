@@ -1,29 +1,17 @@
 import React, { useState } from 'react';
 
-const Question = ({ question }) => {
+const Question = ({ question, setPoints, points }) => {
 
     const [options, setOptions] = useState(question.options);
     const handleOptionClick = (e) => {
         const isTrue = e.target.value === question.options[question.answer];
-        console.log(isTrue ? "true" : "false");
+        if (isTrue)
+            setPoints(points + 1);
+        else if (points > 0)
+            setPoints(points - 1);
     }
-    const handleFiftyClick = (e) => {
-        /*
-        Object.entries(options).forEach(
-            ([key, value]) =>
-            {
-                var random =  Object.entries(options)
-                [Math.floor(Math.random()* Object.entries(options).length)]; 
-                console.log("random: "+random);
-                // if ( question.answer != key) {
-                //     delete options[key];
-                //     k=key;
-                // }
-            }
-        )
-        //  delete options[1];
-          //    setOptions({ ...question.options, ...question.options[k]});
-          */
+    const handleR2OClick = (e) => {
+
         const falseOptionen = Object.keys(options).
             filter((key) => key !== question.answer).
             reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {});
@@ -33,12 +21,12 @@ const Question = ({ question }) => {
 
         const verbleibend = {
             ...Object.keys(options).filter((key) => key == question.answer)
-            .reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {}),
-            ...Object.keys(options).filter((key)=> key == randomFalsch)
-            .reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {})
+                .reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {}),
+            ...Object.keys(options).filter((key) => key == randomFalsch)
+                .reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {})
         }
-        console.log(verbleibend);
-        console.log(randomFalsch);
+        setOptions(verbleibend);
+
     }
     return (
         <div className="container">
@@ -54,8 +42,8 @@ const Question = ({ question }) => {
                     )}
                 </div>
                 <div className="options">
-                    <button onClick={handleFiftyClick} >50:50</button>
-                    <button>next Question</button>
+                    <button onClick={handleR2OClick} >50:50</button>
+                    <button  >next Question</button>
                 </div>
             </div>
         </div>
