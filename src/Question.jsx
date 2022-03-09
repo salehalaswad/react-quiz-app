@@ -1,31 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { questions } from './assets/database';
 
-const Question = ({ question, setPoints, points }) => {
-
+const Question = ({ setPoints, points }) => {
+    const [questionNum, setQuestionNum] = useState(1);
+    const [question, setQuestion] = useState(questions[questionNum]);
     const [options, setOptions] = useState(question.options);
+    useEffect(() => {
+        setQuestion(questions[questionNum]);
+        setOptions(questions[questionNum].options);
+    }, [questionNum]);
     const handleOptionClick = (e) => {
         const isTrue = e.target.value === question.options[question.answer];
-        if (isTrue)
+        if (isTrue) {
             setPoints(points + 1);
-        else if (points > 0)
+            handleNextQClick();
+        }
+        else if (points > 0) {
             setPoints(points - 1);
+        }
     }
     const handleR2OClick = (e) => {
-
-        const falseOptionen = Object.keys(options).
-            filter((key) => key !== question.answer).
-            reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {});
-
-        const randomFalsch = Object.keys(falseOptionen)
-        [Math.floor(Math.random() * Object.keys(falseOptionen).length)];
-
-        const verbleibend = {
+        const falseOptions = Object.keys(options)
+            .filter((key) => key != question.answer)
+            .reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {});
+        console.log("falseOptions", falseOptions);
+        const randomFalseOption = Object.keys(falseOptions)
+        [Math.floor(Math.random() * Object.keys(falseOptions).length)];
+        console.log("randomFalseOption", randomFalseOption);
+        const twoOptions = {
             ...Object.keys(options).filter((key) => key == question.answer)
                 .reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {}),
-            ...Object.keys(options).filter((key) => key == randomFalsch)
+            ...Object.keys(options).filter((key) => key == randomFalseOption)
                 .reduce((cur, key) => { return Object.assign(cur, { [key]: options[key] }) }, {})
         }
-        setOptions(verbleibend);
+        setOptions(twoOptions);
+        console.log("twoOptions", randomFalseOption);
+    }
+    const handleNextQClick = () => {
+        console.log(Object.keys(questions).length);
+        console.log(questionNum);
+        if (questionNum === Object.keys(questions).length) {
+
+            setQuestionNum(1);
+        } else {
+            setQuestionNum(questionNum + 1);
+            console.log(questionNum);
+        }
 
     }
     return (
@@ -43,7 +63,7 @@ const Question = ({ question, setPoints, points }) => {
                 </div>
                 <div className="options">
                     <button onClick={handleR2OClick} >50:50</button>
-                    <button  >next Question</button>
+                    <button onClick={handleNextQClick} >next Question</button>
                 </div>
             </div>
         </div>
