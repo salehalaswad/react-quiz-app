@@ -1,0 +1,55 @@
+.api {
+    text-align: center;
+}
+
+.container {}
+
+form label .question-text {
+    border: 1px solid rgb(255, 0, 212);
+    margin: auto;
+    font-size: 1.5rem;
+    min-width: 25vw;
+    max-height: 75px;
+    min-height: 38px;
+    padding: 9px;
+    box-sizing: 'border-box';
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.radio-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, 10vmin);
+}
+
+.radio-container .radio {
+    display: flex;
+    border: 1px solid red;
+}
+
+.radio-container .radio label {
+    display: flex;
+    border: 1px solid rgb(0, 60, 255);
+    margin: auto;
+    font-size: 1.5rem;
+}
+
+.radio-container .radio label .input-radio {
+    /* display: flex; */
+    border: 1px solid rgb(255, 94, 0);
+    padding: 0;
+    margin: auto 20px;
+    /*  font-size: 1.5rem; */
+}
+
+.radio-container .radio label .input-text {
+    /* display: flex; */
+    border: 1px solid rgb(255, 0, 212);
+    margin: auto;
+    font-size: 1.5rem;
+}
+
+input {
+    font-size: 1rem;
+}

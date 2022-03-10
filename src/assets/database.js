@@ -1,4 +1,4 @@
-export const questions = {
+export const DefaultQuestions = {
     1: {
         text: "Capital of Germany?",
         options: {
