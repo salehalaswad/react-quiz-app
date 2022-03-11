@@ -7,7 +7,7 @@ const Header = ({ title }) => {
     return (
         <header className="App-header">
             <h3>{title}</h3>
-            <Link to="/api" >go to API</Link >
+            <Link to="/api" >API</Link >
         </header>
     )
 }

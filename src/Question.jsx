@@ -19,13 +19,12 @@ const Question = ({ questions, setPoints, points }) => {
             if ((points + 1) == Object.keys(questions).length) {
                 console.log("you won!");
                 setPoints(points + 1);
-                console.log("nav to another page");
+                console.log("navigate to another page");
                 handleNavigate();
 
             } else {
                 setPoints(points + 1);
                 handleNextQClick();
-
             }
         }
         else if (points > 0) {
@@ -70,8 +69,8 @@ const Question = ({ questions, setPoints, points }) => {
                     )}
                 </div>
                 <div className="options">
-                    <button onClick={handleR2OClick} >50:50</button>
-                    <button onClick={handleNextQClick} >next Question</button>
+                    <button className="btn-green" onClick={handleR2OClick} >50:50</button>
+                    <button className="btn-red" onClick={handleNextQClick} >next Question</button>
                 </div>
             </div>
         </div>

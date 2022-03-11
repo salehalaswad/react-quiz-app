@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./API.css"
 const API = ({ questions, setQuestions }) => {
+
     const [options, setOptions] = useState(
         {
             1: "",
@@ -24,16 +25,23 @@ const API = ({ questions, setQuestions }) => {
         const { value } = e.target;
         setQuestion(value)
     }
+    const questionIsComplete = question.length != 0 && options[1].length != 0 && options[2].length != 0 && options[3].length != 0 && options[4].length != 0;
     const handleSubmit = () => {
-        const questionsCount = Object.keys(questions).length;
-        setQuestions({
-            ...questions,
-            [questionsCount + 1]: {
-                text: question,
-                options: options,
-                answer: answer
-            }
-        });
+        if (questionIsComplete) {
+            const questionsCount = Object.keys(questions).length;
+            setQuestions({
+                ...questions,
+                [questionsCount + 1]: {
+                    text: question,
+                    options: options,
+                    answer: answer
+                }
+            });
+        } else {
+            console.log(question);
+            console.log("question text is required!");
+
+        }
 
     }
     return (
@@ -62,11 +70,12 @@ const API = ({ questions, setQuestions }) => {
                             </div>
                         ))}
                     </div>
-                    <Link to="/" >
-                        <button onClick={handleSubmit} >
-                            ADD QUESTION
-                        </button>
 
+                    <Link to="/"  >
+                        <button className="btn-red" >BACK TO QUIZ</button>
+                    </Link>
+                    <Link to={questionIsComplete ? "/" : "/api"}  >
+                        <button className="btn-green" onClick={handleSubmit} >ADD QUESTION</button>
                     </Link>
                 </form>
             </div>
